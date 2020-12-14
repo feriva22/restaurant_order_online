@@ -25,7 +25,9 @@ class customNavBar extends StatelessWidget {
             ),
             Center(
               child: FloatingActionButton(
-                onPressed: () {},
+                onPressed: () {
+                  print("Tombol ditekan");
+                },
                 backgroundColor: Colors.red,
                 child: Icon(Icons.shopping_basket_outlined),
                 elevation: 3,

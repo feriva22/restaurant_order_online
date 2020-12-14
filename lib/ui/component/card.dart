@@ -155,3 +155,47 @@ Container promoCard(category, detail, price, AssetImageLoc) => Container(
         ),
       ])),
     );
+
+Container summaryOrderCard(Color color, type, total, context) => Container(
+      width: MediaQuery.of(context).size.width * 0.3,
+      height: 100,
+      child: Card(
+        color: color,
+        elevation: 5,
+        child: Center(
+            child: Column(
+          children: [
+            Text(type,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500)),
+            Text(total,
+                style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w500)),
+          ],
+        )),
+      ),
+    );
+
+Container profileBtnCard(Icon icon, text, context) => Container(
+    width: MediaQuery.of(context).size.width,
+    height: 60,
+    margin: EdgeInsets.only(bottom: 3),
+    child: Card(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20))),
+      elevation: 2,
+      child: ListTile(
+        leading: icon,
+        title: Text(
+          text,
+          style: TextStyle(
+              color: blueFont, fontSize: 18, fontWeight: FontWeight.w500),
+        ),
+        trailing: Icon(Icons.arrow_forward_ios),
+      ),
+    ));

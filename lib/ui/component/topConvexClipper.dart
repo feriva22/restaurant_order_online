@@ -8,13 +8,15 @@ class topConvexClipper extends CustomClipper<Path> {
         size.width, size.height * 0.3); //endPoint ketika penarikan bezier
 
     Path path = Path()
-      ..moveTo(0, size.height * 0.3) //start ke startPoint penarikan
-      ..quadraticBezierTo(
+      ..moveTo(0, size.height * 0.4) //start ke startPoint penarikan
+      /*..quadraticBezierTo(
           //mulai buat penarikan bezier dari startPoint ke endPoint
           controlPoint.dx,
           controlPoint.dy,
           endPoint.dx,
-          endPoint.dy)
+          endPoint.dy)*/
+      ..arcToPoint(Offset(size.width, size.height * 0.4),
+          radius: Radius.circular(10), clockwise: true)
       ..lineTo(size.width, size.height) //Buat path sisanya
       ..lineTo(0, size.height)
       ..close(); //close ke startPoint
