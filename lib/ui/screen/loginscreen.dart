@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_order_online/ui/component/topConvexClipper.dart';
 
+import 'package:restaurant_order_online/ui/styles/color.dart';
+
 class loginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double heightDevice = MediaQuery.of(context).size.height;
     double widthDevice = MediaQuery.of(context).size.width;
-    Color themeColor = Color(0xFFFF0A0A).withOpacity(0.8);
 
     return Scaffold(
       body: new Stack(

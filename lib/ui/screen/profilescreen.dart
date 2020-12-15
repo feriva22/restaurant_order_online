@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:restaurant_order_online/ui/component/card.dart';
 import 'package:restaurant_order_online/ui/component/customNavBar.dart';
 import 'package:restaurant_order_online/ui/component/customAppBar.dart';
+import 'package:restaurant_order_online/ui/styles/color.dart';
 
 class profileScreen extends StatelessWidget {
   @override
@@ -9,7 +10,6 @@ class profileScreen extends StatelessWidget {
     // TODO: implement build
     double heightDevice = MediaQuery.of(context).size.height;
     double widthDevice = MediaQuery.of(context).size.width;
-    Color themeColor = Color(0xFFFF0A0A).withOpacity(0.8);
 
     return Scaffold(
       appBar: customAppBar(),
@@ -53,9 +53,6 @@ class sumarryOrderArea extends StatelessWidget {
 class profileInfoArea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Color themeColor = Color(0xFFFF0A0A).withOpacity(0.8);
-    Color blueFont = Color(0xFF153E73);
-
     return Center(
       child: Column(
         children: [
@@ -67,17 +64,17 @@ class profileInfoArea extends StatelessWidget {
                   border: Border.all(color: themeColor, width: 3),
                   image: DecorationImage(
                       fit: BoxFit.fill,
-                      image: AssetImage("assets/images/profile.jpeg")))),
+                      image: AssetImage("assets/images/someone.jpeg")))),
           SizedBox(
             height: 3,
           ),
           Text(
-            "FERICO DENO VANDRA",
+            "FAHRI LUBIS",
             style: TextStyle(
                 color: blueFont, fontSize: 15, fontWeight: FontWeight.w500),
           ),
           Text(
-            "fericodeva69@gmail.com",
+            "fahrilubis44@gmail.com",
             style: TextStyle(
                 color: Color(0xff515F65),
                 fontSize: 12,

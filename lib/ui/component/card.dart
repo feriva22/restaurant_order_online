@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
-Color blueFont = Color(0xFF153E73);
-Color pinkFont = Color(0xFFF02756);
+import 'package:restaurant_order_online/ui/styles/color.dart';
 
 Container miniCategoryCard(label, assetImageLoc, {isChoose = false}) =>
     Container(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_order_online/ui/styles/color.dart';
 
 class customNavBar extends StatelessWidget {
   customNavBar({
@@ -9,16 +10,12 @@ class customNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    Color themeColor = Color(0xFFFF0A0A).withOpacity(0.8);
-    Color activeNav = Color(0xFF20D0C4);
-    Color disabledNav = Colors.grey;
 
     return Positioned(
       bottom: 10,
       child: Container(
         width: size.width,
         height: 70,
-        //color: Colors.black,
         child: Stack(
           children: [
             CustomPaint(

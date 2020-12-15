@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_order_online/ui/styles/color.dart';
 
 class customAppBar extends StatelessWidget implements PreferredSizeWidget {
   customAppBar({this.noSearch: false, this.title: null});
@@ -6,7 +7,6 @@ class customAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool noSearch;
   final String title;
 
-  Color themeColor = Color(0xFFFF0A0A).withOpacity(0.8);
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -36,7 +36,7 @@ class customAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         IconButton(
           icon: Icon(Icons.notifications_active_outlined),
-          color: Color(0xff20D0C4),
+          color: activeNav,
           tooltip: 'Notifikasi',
           onPressed: () {
             if (ModalRoute.of(context).settings.name != '/notification') {
@@ -57,6 +57,6 @@ class customAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  // TODO: implement preferredSize
+  // default size is kToolbarHeight
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
