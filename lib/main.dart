@@ -5,6 +5,9 @@ import 'package:restaurant_order_online/ui/screen/dashboardscreen.dart';
 import 'package:restaurant_order_online/ui/screen/foodscreen.dart';
 import 'package:restaurant_order_online/ui/screen/favoritescreen.dart';
 import 'package:restaurant_order_online/ui/screen/profilescreen.dart';
+import 'package:restaurant_order_online/ui/screen/detailproductscreen.dart';
+import 'package:restaurant_order_online/ui/screen/cartscreen.dart';
+import 'package:restaurant_order_online/ui/screen/notificationscreen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,24 +23,10 @@ void main() {
       '/dashboard': (context) => dashboardScreen(),
       '/foods': (context) => foodScreen(),
       '/favorite': (context) => favoriteScreen(),
-      '/profile': (context) => profileScreen()
+      '/profile': (context) => profileScreen(),
+      '/detailproduct': (context) => detailProductScreen(),
+      '/cart': (context) => cartScreen(),
+      '/notification': (context) => notificationScreen()
     },
   ));
 }
-
-/*class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          hintColor: Color(0xFFC0F0E8),
-          primaryColor: Color(0xFF80E1D1),
-          canvasColor: Colors.transparent,
-          fontFamily: "Montserrat"),
-      home: HomeScreen(),
-    );
-  }
-}*/

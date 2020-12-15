@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_order_online/ui/component/card.dart';
 import 'package:restaurant_order_online/ui/component/customNavBar.dart';
+import 'package:restaurant_order_online/ui/component/customAppBar.dart';
 
 class profileScreen extends StatelessWidget {
   @override
@@ -11,37 +12,7 @@ class profileScreen extends StatelessWidget {
     Color themeColor = Color(0xFFFF0A0A).withOpacity(0.8);
 
     return Scaffold(
-      appBar: AppBar(
-        leading: Container(
-          alignment: Alignment.centerLeft,
-          child: IconButton(
-              icon: Icon(Icons.search),
-              color: Colors.grey,
-              tooltip: 'Cari',
-              onPressed: () {}),
-        ),
-        leadingWidth: widthDevice * 0.3,
-        title: Text(
-          "Palemquin",
-          style: TextStyle(
-              color: themeColor, fontSize: 22, fontWeight: FontWeight.w700),
-        ),
-        backgroundColor: Colors.white,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.notifications_active_outlined),
-            color: Color(0xff20D0C4),
-            tooltip: 'Notifikasi',
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Image.asset("assets/images/discount-icon.png"),
-            color: Colors.red,
-            tooltip: 'Diskon & Promo',
-            onPressed: () {},
-          ),
-        ],
-      ),
+      appBar: customAppBar(),
       body: Stack(children: [
         ListView(
           padding: EdgeInsets.only(left: 10, right: 10, top: 30, bottom: 80),
@@ -59,7 +30,7 @@ class profileScreen extends StatelessWidget {
             profileBtnCard(Icon(Icons.exit_to_app), "Keluar", context)
           ],
         ),
-        customNavBar(3)
+        customNavBar(currentIdx: 3)
       ]),
     );
   }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class customNavBar extends StatelessWidget {
-  customNavBar(this.currentIdx);
+  customNavBar({
+    this.currentIdx: null,
+  });
 
   final int currentIdx;
   @override
@@ -27,8 +29,9 @@ class customNavBar extends StatelessWidget {
               child: FloatingActionButton(
                 onPressed: () {
                   print("Tombol ditekan");
+                  Navigator.pushReplacementNamed(context, '/cart');
                 },
-                backgroundColor: Colors.red,
+                backgroundColor: themeColor,
                 child: Icon(Icons.shopping_basket_outlined),
                 elevation: 3,
               ),

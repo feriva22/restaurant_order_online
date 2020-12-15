@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:restaurant_order_online/ui/component/card.dart';
 import 'package:restaurant_order_online/ui/component/customNavBar.dart';
+import 'package:restaurant_order_online/ui/component/customAppBar.dart';
 
 class dashboardScreen extends StatelessWidget {
   @override
@@ -11,41 +12,11 @@ class dashboardScreen extends StatelessWidget {
     Color blueFont = Color(0xFF153E73);
 
     return Scaffold(
-      appBar: AppBar(
-        leading: Container(
-          alignment: Alignment.centerLeft,
-          child: IconButton(
-              icon: Icon(Icons.search),
-              color: Colors.grey,
-              tooltip: 'Cari',
-              onPressed: () {}),
-        ),
-        leadingWidth: widthDevice * 0.3,
-        title: Text(
-          "Palemquin",
-          style: TextStyle(
-              color: themeColor, fontSize: 22, fontWeight: FontWeight.w700),
-        ),
-        backgroundColor: Colors.white,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.notifications_active_outlined),
-            color: Color(0xff20D0C4),
-            tooltip: 'Notifikasi',
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Image.asset("assets/images/discount-icon.png"),
-            color: Colors.red,
-            tooltip: 'Diskon & Promo',
-            onPressed: () {},
-          ),
-        ],
-      ),
+      appBar: customAppBar(),
       body: Stack(
         children: [
           ListView(
-            padding: EdgeInsets.only(left: 10, top: 20, bottom: 80),
+            padding: EdgeInsets.only(left: 10, top: 10, bottom: 80),
             children: [
               categoryArea(),
               popularArea(),
@@ -53,7 +24,7 @@ class dashboardScreen extends StatelessWidget {
               promoArea()
             ],
           ),
-          customNavBar(0)
+          customNavBar(currentIdx: 0)
         ],
       ),
     );
@@ -131,7 +102,9 @@ class popularArea extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           children: [
             foodCard("Sate Lulur", "25K/Porsi",
-                "assets/images/foods/sate-lulur.jpg", false),
+                "assets/images/foods/sate-lulur.jpg", false, onchoose: () {
+              Navigator.pushNamed(context, '/detailproduct');
+            }),
             foodCard("Sate Gurame", "60K/Porsi",
                 "assets/images/foods/sate-gurame.png", false),
             foodCard("Sambel Tempe", "25K/Porsi",

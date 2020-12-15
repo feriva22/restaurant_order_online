@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 Color blueFont = Color(0xFF153E73);
 Color pinkFont = Color(0xFFF02756);
 
-Container miniCategoryCard(label, assetImageLoc) => Container(
+Container miniCategoryCard(label, assetImageLoc, {isChoose = false}) =>
+    Container(
       width: 80,
       margin: EdgeInsets.only(right: 8),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(10)),
+        color: isChoose ? Colors.black.withOpacity(0.05) : Colors.transparent,
+      ),
       child: Column(
         children: [
           SizedBox(
@@ -30,7 +35,14 @@ Container miniCategoryCard(label, assetImageLoc) => Container(
       ),
     );
 
-Container foodCard(label, price, AssetImageLoc, isFavorite) => Container(
+Container foodCard(
+  label,
+  price,
+  AssetImageLoc,
+  isFavorite, {
+  onchoose = null,
+}) =>
+    Container(
       width: 160,
       child: Card(
         child: Stack(children: [
@@ -92,7 +104,7 @@ Container foodCard(label, price, AssetImageLoc, isFavorite) => Container(
                 height: 30,
                 child: RaisedButton(
                   padding: EdgeInsets.zero,
-                  onPressed: () {},
+                  onPressed: onchoose != null ? onchoose : () {},
                   color: Colors.white,
                   elevation: 2,
                   shape: CircleBorder(side: BorderSide.none),
@@ -199,3 +211,133 @@ Container profileBtnCard(Icon icon, text, context) => Container(
         trailing: Icon(Icons.arrow_forward_ios),
       ),
     ));
+
+Container additionalMenuCard(label, price, assetImageLoc) => Container(
+      width: 70,
+      margin: EdgeInsets.only(right: 4),
+      child: Column(
+        children: [
+          SizedBox(
+            height: 70,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(15.0),
+              child: Image.asset(assetImageLoc),
+            ),
+          ),
+          Flexible(
+            child: Text(
+              label,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 12,
+                color: blueFont,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+          Flexible(
+            child: Text(
+              "Rp." + price,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 12,
+                color: blueFont,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+
+Container menuCartCard(
+  label,
+  price,
+  quantity,
+  AssetImageLoc,
+) =>
+    Container(
+      width: 160,
+      margin: EdgeInsets.only(right: 5),
+      child: Stack(children: [
+        Card(
+          child: Center(
+            child: Container(
+              padding: EdgeInsets.only(left: 10, right: 10),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 10,
+                  ),
+                  ClipRRect(
+                      borderRadius: BorderRadius.circular(8.0),
+                      child: SizedBox(
+                        height: 100,
+                        width: 100,
+                        child: Image.asset(AssetImageLoc, fit: BoxFit.contain),
+                      )),
+                  Text(label,
+                      style: TextStyle(
+                          color: blueFont,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: <Widget>[
+                      Icon(
+                        Icons.remove,
+                        size: 20,
+                        color: Colors.grey.shade700,
+                      ),
+                      Container(
+                        color: Colors.grey.shade200,
+                        padding: const EdgeInsets.only(
+                            bottom: 2, right: 12, left: 12),
+                        child: Text(
+                          quantity,
+                        ),
+                      ),
+                      Icon(
+                        Icons.add,
+                        size: 20,
+                        color: Colors.grey.shade700,
+                      )
+                    ],
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text("Rp" + price,
+                      style: TextStyle(
+                          fontSize: 16,
+                          color: Color(0xff20D0C4),
+                          fontWeight: FontWeight.w700)),
+                ],
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+            right: 0,
+            top: 0,
+            child: Container(
+              width: 30,
+              height: 30,
+              child: RaisedButton(
+                padding: EdgeInsets.zero,
+                onPressed: () {},
+                color: Colors.red,
+                elevation: 2,
+                shape: CircleBorder(side: BorderSide.none),
+                child: Center(
+                  child: Icon(
+                    Icons.delete,
+                    color: Colors.white,
+                    size: 20,
+                  ),
+                ),
+              ),
+            )),
+      ]),
+    );
