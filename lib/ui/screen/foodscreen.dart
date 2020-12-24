@@ -5,19 +5,43 @@ import 'package:restaurant_order_online/ui/component/customAppBar.dart';
 
 import 'package:restaurant_order_online/ui/styles/color.dart';
 
+import 'package:provider/provider.dart';
+import 'package:restaurant_order_online/models/category.dart';
+import 'package:restaurant_order_online/models/menu.dart';
+
 class foodScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    double heightDevice = MediaQuery.of(context).size.height;
-    double widthDevice = MediaQuery.of(context).size.width;
-
     return Scaffold(
       appBar: customAppBar(),
       body: Stack(children: [
-        ListView(
-          padding: EdgeInsets.only(left: 10, top: 20, bottom: 150),
-          children: [categoryArea(), productArea()],
+        Column(
+          //padding: EdgeInsets.only(left: 10, top: 20, bottom: 150),
+          children: [
+            Container(
+                padding: EdgeInsets.only(
+                  left: 10,
+                  top: 20,
+                ),
+                child: Column(
+                  children: [
+                    categoryArea(),
+                    Row(
+                      children: [
+                        Text("Menu",
+                            style: TextStyle(
+                                color: blueFont,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700)),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                  ],
+                )),
+            productArea()
+          ],
         ),
         customNavBar(currentIdx: 1)
       ]),
@@ -37,8 +61,8 @@ class foodScreen extends StatelessWidget {
 class categoryArea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double heightDevice = MediaQuery.of(context).size.height;
-    double widthDevice = MediaQuery.of(context).size.width;
+    Size size = MediaQuery.of(context).size;
+    var categoryList = context.watch<CategoryModel>();
 
     return Column(
       children: [
@@ -54,20 +78,13 @@ class categoryArea extends StatelessWidget {
         SizedBox(height: 5),
         Container(
           height: 110,
-          width: widthDevice,
-          child: ListView(
+          width: size.width,
+          child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            children: [
-              miniCategoryCard("Semua", "assets/images/all-food.png",
-                  isChoose: true),
-              miniCategoryCard("Minuman", "assets/images/minuman-categ.png"),
-              miniCategoryCard("Nasi Kotak", "assets/images/nasi-kotak.png"),
-              miniCategoryCard("Aqiqah", "assets/images/aqiqah.png"),
-              miniCategoryCard("Tumpeng", "assets/images/tumpeng.png"),
-              miniCategoryCard("Prasmanan", "assets/images/prasmanan.png"),
-              miniCategoryCard(
-                  "Kambing Guling", "assets/images/kambing-guling.png"),
-            ],
+            itemCount: categoryList.getTotalItem(),
+            itemBuilder: (BuildContext ctx, int index) {
+              return miniCategoryCard(index);
+            },
           ),
         ),
       ],
@@ -78,72 +95,20 @@ class categoryArea extends StatelessWidget {
 class productArea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double heightDevice = MediaQuery.of(context).size.height;
-    double widthDevice = MediaQuery.of(context).size.width;
+    Size size = MediaQuery.of(context).size;
+    var menuList = context.watch<MenuModel>();
 
-    return Column(children: [
-      Row(
-        children: [
-          Text("Menu",
-              style: TextStyle(
-                  color: blueFont, fontSize: 16, fontWeight: FontWeight.w700)),
-        ],
-      ),
-      SizedBox(
-        height: 5,
-      ),
-      Container(
-        width: widthDevice,
-        padding: EdgeInsets.only(right: 10),
-        child: Column(
-          children: [
-            Container(
-              height: 200,
-              child: Row(
-                children: [
-                  foodCard(
-                      "Sate Lulur",
-                      "25K/Porsi",
-                      "assets/images/foods/sate-lulur.jpg",
-                      false, onchoose: () {
-                    Navigator.pushNamed(context, '/detailproduct');
-                  }),
-                  Spacer(),
-                  foodCard("Sate Gurame", "60K/Porsi",
-                      "assets/images/foods/sate-gurame.png", false),
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 3,
-            ),
-            Container(
-              height: 200,
-              child: Row(
-                children: [
-                  foodCard("Sate Gurame", "60K/Porsi",
-                      "assets/images/foods/sate-gurame.png", false),
-                  Spacer(),
-                  foodCard("Sambel Tempe", "25K/Porsi",
-                      "assets/images/foods/sambel-tempe.png", true)
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 3,
-            ),
-            Row(
-              children: [
-                foodCard("Sate Gurame", "60K/Porsi",
-                    "assets/images/foods/sate-gurame.png", false),
-                Spacer(),
-                foodCard("Sambel Tempe", "25K/Porsi",
-                    "assets/images/foods/sambel-tempe.png", true)
-              ],
-            ),
-          ],
-        ),
-      )
-    ]);
+    return Expanded(
+      child: GridView.count(
+          padding: EdgeInsets.only(left: 10, top: 5, right: 10, bottom: 150),
+          crossAxisSpacing: 5,
+          mainAxisSpacing: 10,
+          crossAxisCount: 2,
+          shrinkWrap: true,
+          childAspectRatio: 0.9,
+          children: List.generate(menuList.getTotalItem(), (index) {
+            return menuCard(index);
+          })),
+    );
   }
 }

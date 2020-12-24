@@ -5,11 +5,14 @@ import 'package:restaurant_order_online/ui/component/customAppBar.dart';
 
 import 'package:restaurant_order_online/ui/styles/color.dart';
 
+import 'package:provider/provider.dart';
+import 'package:restaurant_order_online/models/category.dart';
+import 'package:restaurant_order_online/models/menu.dart';
+
 class dashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double heightDevice = MediaQuery.of(context).size.height;
-    double widthDevice = MediaQuery.of(context).size.width;
+    Size size = MediaQuery.of(context).size;
 
     return Scaffold(
       appBar: customAppBar(),
@@ -34,8 +37,8 @@ class dashboardScreen extends StatelessWidget {
 class categoryArea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double heightDevice = MediaQuery.of(context).size.height;
-    double widthDevice = MediaQuery.of(context).size.width;
+    Size size = MediaQuery.of(context).size;
+    var categoryList = context.watch<CategoryModel>();
 
     return Column(
       children: [
@@ -60,18 +63,13 @@ class categoryArea extends StatelessWidget {
         ),
         Container(
           height: 110,
-          width: widthDevice,
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: [
-              miniCategoryCard("Nasi Kotak", "assets/images/nasi-kotak.png"),
-              miniCategoryCard("Aqiqah", "assets/images/aqiqah.png"),
-              miniCategoryCard("Tumpeng", "assets/images/tumpeng.png"),
-              miniCategoryCard("Prasmanan", "assets/images/prasmanan.png"),
-              miniCategoryCard(
-                  "Kambing Guling", "assets/images/kambing-guling.png"),
-            ],
-          ),
+          width: size.width,
+          child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: categoryList.getTotalItem(),
+              itemBuilder: (BuildContext ctx, int index) {
+                return miniCategoryCard(index);
+              }),
         ),
       ],
     );
@@ -81,8 +79,8 @@ class categoryArea extends StatelessWidget {
 class popularArea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double heightDevice = MediaQuery.of(context).size.height;
-    double widthDevice = MediaQuery.of(context).size.width;
+    Size size = MediaQuery.of(context).size;
+    var menuList = context.watch<MenuModel>();
 
     return Column(children: [
       Row(
@@ -97,21 +95,14 @@ class popularArea extends StatelessWidget {
       ),
       Container(
         height: 200,
-        width: widthDevice,
-        child: ListView(
-          scrollDirection: Axis.horizontal,
-          children: [
-            foodCard("Sate Lulur", "25K/Porsi",
-                "assets/images/foods/sate-lulur.jpg", false, onchoose: () {
-              Navigator.pushNamed(context, '/detailproduct');
+        width: size.width,
+        child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: menuList.getTotalItem(isPopular: true),
+            itemBuilder: (BuildContext ctx, int index) {
+              return menuCard(index, isPopular: true);
             }),
-            foodCard("Sate Gurame", "60K/Porsi",
-                "assets/images/foods/sate-gurame.png", false),
-            foodCard("Sambel Tempe", "25K/Porsi",
-                "assets/images/foods/sambel-tempe.png", true)
-          ],
-        ),
-      )
+      ),
     ]);
   }
 }

@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_order_online/ui/styles/color.dart';
+
 import 'package:restaurant_order_online/ui/component/card.dart';
 import 'package:restaurant_order_online/ui/component/customNavBar.dart';
+
+import 'package:restaurant_order_online/models/cart.dart';
 
 class cartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Color themeColor = Color(0xFFFF0A0A);
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -70,7 +74,6 @@ class orderTypeArea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    Color blueFont = Color(0xFF153E73);
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -132,20 +135,17 @@ Widget orderTypeCard({isDelivery}) => Container(
 class menuInCartArea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var cart = context.watch<CartModel>();
+
     return Container(
       height: 200,
       width: MediaQuery.of(context).size.width,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: [
-          menuCartCard("Sate Lulur Hot", "25K", "1",
-              "assets/images/foods/sate-lulur.jpg"),
-          menuCartCard("Sate Gurame", "120K", "2",
-              "assets/images/foods/sate-gurame.png"),
-          menuCartCard("Sambel Tempe", "25K", "1",
-              "assets/images/foods/sambel-tempe.png")
-        ],
-      ),
+      child: ListView.builder(
+          itemCount: cart.items.length,
+          scrollDirection: Axis.horizontal,
+          itemBuilder: (BuildContext ctx, int index) {
+            return MenuCart(cart.items[index]);
+          }),
     );
   }
 }
@@ -154,7 +154,7 @@ class summaryCartArea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    Color blueFont = Color(0xFF153E73);
+    var cart = context.watch<CartModel>();
 
     return Card(
       child: Container(
@@ -170,7 +170,7 @@ class summaryCartArea extends StatelessWidget {
                       fontSize: 13,
                       fontWeight: FontWeight.w500)),
               Spacer(),
-              Text("Rp170.000",
+              Text("Rp" + cart.subTotalPrice.toString(),
                   style: TextStyle(
                       color: blueFont,
                       fontSize: 13,
@@ -196,7 +196,7 @@ class summaryCartArea extends StatelessWidget {
                       fontSize: 17,
                       fontWeight: FontWeight.w700)),
               Spacer(),
-              Text("Rp170.000",
+              Text("Rp" + cart.finalTotalPrice.toString(),
                   style: TextStyle(
                       color: Colors.red,
                       fontSize: 17,

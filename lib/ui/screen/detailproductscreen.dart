@@ -1,14 +1,30 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import "package:intl/intl.dart";
+
 import 'package:restaurant_order_online/ui/component/card.dart';
 
-class detailProductScreen extends StatelessWidget {
-  Color blueFont = Color(0xFF153E73);
-  Color themeColor = Color(0xFFFF0A0A).withOpacity(0.8);
+import 'package:restaurant_order_online/ui/styles/color.dart';
 
+import 'package:restaurant_order_online/models/menu.dart';
+import 'package:restaurant_order_online/models/cart.dart';
+
+class detailProductScreen extends StatelessWidget {
+  MenuItem menu;
   @override
   Widget build(BuildContext context) {
+    final Map arguments = ModalRoute.of(context).settings.arguments as Map;
+    if (arguments != null) menu = arguments['menu'];
+
+    String numbertoPrice(double price) {
+      var _formattedNumber = NumberFormat.compactCurrency(
+        decimalDigits: 0,
+        symbol:
+            'Rp', // if you want to add currency symbol then pass that in this else leave it empty.
+      ).format(price);
+      return _formattedNumber;
+    }
+
     Size size = MediaQuery.of(context).size;
     Widget addToCartBtn = ElevatedButton(
       style: ElevatedButton.styleFrom(
@@ -26,6 +42,8 @@ class detailProductScreen extends StatelessWidget {
             color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
       ),
       onPressed: () {
+        var cart = context.read<CartModel>();
+        cart.add(menu);
         Navigator.pushReplacementNamed(context, '/cart');
       },
     );
@@ -38,7 +56,7 @@ class detailProductScreen extends StatelessWidget {
           color: Colors.white, //change your color here
         ),
         title: Text(
-          "Sate Lulur Hot",
+          menu.name,
           style: TextStyle(color: Colors.white),
         ),
         centerTitle: true,
@@ -51,7 +69,8 @@ class detailProductScreen extends StatelessWidget {
             height: size.height * 0.5,
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage("assets/images/foods/sate-lulur.jpg"),
+                    //image: AssetImage("assets/images/foods/sate-lulur.jpg"),
+                    image: AssetImage(menu.asset),
                     fit: BoxFit.cover)),
           ),
           ClipPath(
@@ -78,7 +97,7 @@ class detailProductScreen extends StatelessWidget {
                       height: 15,
                     ),
                     Text(
-                      "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, ",
+                      menu.description,
                       style: TextStyle(color: blueFont, fontSize: 13),
                     ),
                     SizedBox(
@@ -102,7 +121,7 @@ class detailProductScreen extends StatelessWidget {
                   addToCartBtn,
                   Spacer(),
                   Text(
-                    "Rp25K",
+                    numbertoPrice(menu.price),
                     style: TextStyle(
                         fontSize: 30,
                         fontWeight: FontWeight.w700,
