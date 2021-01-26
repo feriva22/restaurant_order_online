@@ -113,6 +113,7 @@ class menuCard extends StatelessWidget {
             right: 5,
             top: 5,
             child: IconButton(
+              onPressed: () {},
               padding: EdgeInsets.zero,
               constraints: BoxConstraints(),
               icon: false
@@ -204,6 +205,7 @@ Container foodCard(
             right: 5,
             top: 5,
             child: IconButton(
+              onPressed: () {},
               padding: EdgeInsets.zero,
               constraints: BoxConstraints(),
               icon: isFavorite
@@ -312,22 +314,25 @@ Container summaryOrderCard(Color color, type, total, context) => Container(
       ),
     );
 
-Container profileBtnCard(Icon icon, text, context) => Container(
+Container profileBtnCard(Icon icon, text, context, {onTap: null}) => Container(
     width: MediaQuery.of(context).size.width,
     height: 60,
     margin: EdgeInsets.only(bottom: 3),
-    child: Card(
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(20))),
-      elevation: 2,
-      child: ListTile(
-        leading: icon,
-        title: Text(
-          text,
-          style: TextStyle(
-              color: blueFont, fontSize: 18, fontWeight: FontWeight.w500),
+    child: GestureDetector(
+      onTap: onTap,
+      child: Card(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20))),
+        elevation: 2,
+        child: ListTile(
+          leading: icon,
+          title: Text(
+            text,
+            style: TextStyle(
+                color: blueFont, fontSize: 18, fontWeight: FontWeight.w500),
+          ),
+          trailing: Icon(Icons.arrow_forward_ios),
         ),
-        trailing: Icon(Icons.arrow_forward_ios),
       ),
     ));
 

@@ -11,6 +11,7 @@ class cartScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    var cart = context.watch<CartModel>();
 
     return Scaffold(
       appBar: AppBar(
@@ -58,7 +59,7 @@ class cartScreen extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         fontSize: 16),
                   ),
-                  onPressed: () {},
+                  onPressed: cart.items.length > 0 ? () {} : null,
                 ),
               )
             ],
@@ -98,39 +99,54 @@ class orderTypeArea extends StatelessWidget {
   }
 }
 
-Widget orderTypeCard({isDelivery}) => Container(
-      width: 160,
-      margin: EdgeInsets.only(right: 8),
-      child: Card(
-        color: isDelivery ? Colors.grey[400] : Colors.red,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20))),
-        elevation: 4,
-        child: Row(
-          children: [
-            SizedBox(
-              width: 10,
-            ),
-            (isDelivery
-                ? Icon(Icons.local_shipping)
-                : Icon(
-                    Icons.restaurant,
-                    color: Colors.white,
-                  )),
-            SizedBox(
-              width: 5,
-            ),
-            Text(
-              isDelivery ? "Diantar" : "Makan diresto",
-              style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w500,
-                  color: isDelivery ? Colors.black : Colors.white),
-            ),
-          ],
+class orderTypeCard extends StatelessWidget {
+  final bool isDelivery;
+  orderTypeCard({this.isDelivery});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: isDelivery
+          ? () {}
+          : () {
+              Navigator.of(context).pushNamed('/reservation');
+            },
+      child: Container(
+        width: 160,
+        margin: EdgeInsets.only(right: 8),
+        child: Card(
+          color: isDelivery ? Colors.grey[400] : Colors.red,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20))),
+          elevation: 4,
+          child: Row(
+            children: [
+              SizedBox(
+                width: 10,
+              ),
+              (isDelivery
+                  ? Icon(Icons.local_shipping)
+                  : Icon(
+                      Icons.restaurant,
+                      color: Colors.white,
+                    )),
+              SizedBox(
+                width: 5,
+              ),
+              Text(
+                isDelivery ? "Diantar" : "Makan diresto",
+                style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: isDelivery ? Colors.black : Colors.white),
+              ),
+            ],
+          ),
         ),
       ),
     );
+  }
+}
 
 class menuInCartArea extends StatelessWidget {
   @override

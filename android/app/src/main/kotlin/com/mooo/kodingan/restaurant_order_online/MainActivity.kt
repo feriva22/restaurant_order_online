@@ -1,4 +1,4 @@
-package com.example.restaurant_order_online
+package com.mooo.kodingan.restaurant_order_online
 
 import io.flutter.embedding.android.FlutterActivity
 

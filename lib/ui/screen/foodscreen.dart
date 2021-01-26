@@ -25,7 +25,7 @@ class foodScreen extends StatelessWidget {
                 ),
                 child: Column(
                   children: [
-                    categoryArea(),
+                    categoryAllArea(),
                     Row(
                       children: [
                         Text("Menu",
@@ -58,7 +58,7 @@ class foodScreen extends StatelessWidget {
   }
 }
 
-class categoryArea extends StatelessWidget {
+class categoryAllArea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;

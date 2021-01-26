@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_order_online/ui/screen/loginscreen.dart';
 import 'package:restaurant_order_online/ui/component/card.dart';
 import 'package:restaurant_order_online/ui/component/customNavBar.dart';
 import 'package:restaurant_order_online/ui/component/customAppBar.dart';
 import 'package:restaurant_order_online/ui/styles/color.dart';
+
+import 'package:provider/provider.dart';
+import 'package:restaurant_order_online/models/auth.dart';
 
 class profileScreen extends StatelessWidget {
   @override
@@ -27,7 +31,40 @@ class profileScreen extends StatelessWidget {
             ),
             profileBtnCard(Icon(Icons.shopping_cart), "Pesanan Saya", context),
             profileBtnCard(Icon(Icons.build), "Konfigurasi Akun", context),
-            profileBtnCard(Icon(Icons.exit_to_app), "Keluar", context)
+            profileBtnCard(Icon(Icons.exit_to_app), "Keluar", context,
+                onTap: () async {
+              showDialog(
+                barrierDismissible: false,
+                context: context,
+                builder: (_) => AlertDialog(
+                  title: Text("Yakin ingin logout",
+                      style: TextStyle(fontSize: 16)),
+                  actions: [
+                    FlatButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text("Tidak"),
+                      textColor: Colors.grey,
+                    ),
+                    FlatButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                        context.read<AuthProvider>().logout();
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    loginScreen()));
+                      },
+                      child: Text("Ya"),
+                      color: Colors.red,
+                      textColor: Colors.white,
+                    ),
+                  ],
+                ),
+              );
+            })
           ],
         ),
         customNavBar(currentIdx: 3)
@@ -56,29 +93,40 @@ class profileInfoArea extends StatelessWidget {
     return Center(
       child: Column(
         children: [
-          Container(
-              width: 150.0,
-              height: 150.0,
-              decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(color: themeColor, width: 3),
-                  image: DecorationImage(
-                      fit: BoxFit.fill,
-                      image: AssetImage("assets/images/someone.jpeg")))),
+          Consumer<AuthProvider>(builder: (context, model, widget) {
+            if (model.currentUser != null) {
+              return Container(
+                  width: 150.0,
+                  height: 150.0,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(color: themeColor, width: 3),
+                      image: DecorationImage(
+                          fit: BoxFit.fill,
+                          image: NetworkImage(model.currentUser.photoUrl))));
+            } else {
+              return Container();
+            }
+          }),
           SizedBox(
             height: 3,
           ),
-          Text(
-            "FAHRI LUBIS",
-            style: TextStyle(
-                color: blueFont, fontSize: 15, fontWeight: FontWeight.w500),
+          Consumer<AuthProvider>(
+            builder: (context, model, widget) => Text(
+              model.currentUser?.displayName ??
+                  '', //check for value is null or not with ?
+              style: TextStyle(
+                  color: blueFont, fontSize: 15, fontWeight: FontWeight.w500),
+            ),
           ),
-          Text(
-            "fahrilubis44@gmail.com",
-            style: TextStyle(
-                color: Color(0xff515F65),
-                fontSize: 12,
-                fontWeight: FontWeight.w500),
+          Consumer<AuthProvider>(
+            builder: (context, model, widget) => Text(
+              model.currentUser?.email ?? '',
+              style: TextStyle(
+                  color: Color(0xff515F65),
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500),
+            ),
           ),
         ],
       ),

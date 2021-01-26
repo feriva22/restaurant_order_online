@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "621897321892",
+    "firebase_url": "https://palemquinresto.firebaseio.com",
+    "project_id": "palemquinresto",
+    "storage_bucket": "palemquinresto.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:621897321892:android:80d6a7df293c177322c531",
+        "android_client_info": {
+          "package_name": "com.mooo.kodingan.restaurant_order_online"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "621897321892-n1491v2jdbumdnfv9j02th6qd00ajtfq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mooo.kodingan.restaurant_order_online",
+            "certificate_hash": "1aa66bd86f6429d670ba937cabca057cab68fb67"
+          }
+        },
+        {
+          "client_id": "621897321892-bna5glj6qae8l82cs006os81qle35qkr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUqvP3NnYGFml8lHEpCHGq8sLrhH7o2bg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "621897321892-bna5glj6qae8l82cs006os81qle35qkr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
