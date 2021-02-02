@@ -19,41 +19,43 @@ String numbertoPrice(double price) {
 
 class miniCategoryCard extends StatelessWidget {
   final index;
-  miniCategoryCard(this.index, {Key key}) : super(key: key);
+  final CategoryMenu category;
+  miniCategoryCard(this.index, this.category, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var categItem = context.select<CategoryModel, CategoryItem>(
-      (category) => category.getByPosition(index),
-    );
-    return Container(
-      width: 80,
-      margin: EdgeInsets.only(right: 8),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-        color: false ? Colors.black.withOpacity(0.05) : Colors.transparent,
-      ),
-      child: Column(
-        children: [
-          SizedBox(
-            height: 70,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(15.0),
-              child: Image.asset(categItem.asset),
+    return GestureDetector(
+      onTap: () {
+        print(index);
+      },
+      child: Container(
+        width: 80,
+        margin: EdgeInsets.only(right: 8),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(10)),
+          color: false ? Colors.black.withOpacity(0.05) : Colors.transparent,
+        ),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 70,
+              child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15.0),
+                  child: Image.network(category.asset)),
             ),
-          ),
-          Flexible(
-            child: Text(
-              categItem.name,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 12,
-                color: blueFont,
-                fontWeight: FontWeight.w500,
+            Flexible(
+              child: Text(
+                category.name,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 12,
+                  color: blueFont,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

@@ -113,8 +113,7 @@ class profileInfoArea extends StatelessWidget {
           ),
           Consumer<AuthProvider>(
             builder: (context, model, widget) => Text(
-              model.currentUser?.displayName ??
-                  '', //check for value is null or not with ?
+              model.profile?.name ?? '', //check for value is null or not with ?
               style: TextStyle(
                   color: blueFont, fontSize: 15, fontWeight: FontWeight.w500),
             ),

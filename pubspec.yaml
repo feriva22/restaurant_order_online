@@ -25,13 +25,11 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.0
   flutter_launcher_icons: "^0.8.0"
-  http: ^0.12.2
+  dio: ^3.0.10
   timeago: ^2.0.29
   provider: ^4.3.2
   intl: "^0.16.1"
-  # Use for clickacble region svg
-  svg_path_parser: ^0.1.1
-  touchable: ^0.2.0
+  flutter_dotenv: ^3.1.0
   fluttertoast: ^7.1.6
 
   # Google provider
@@ -41,7 +39,8 @@ dependencies:
   #persistence data
   shared_preferences: ^0.5.12+4
 
-  cached_network_image: ^2.5.0
+  #sentry.io for check error
+  sentry_flutter: ^4.0.4
 
 flutter_icons:
   android: "launcher_icon"
@@ -64,6 +63,7 @@ flutter:
   uses-material-design: true
 
   assets:
+    - .env
     - assets/images/
     - assets/images/foods/
     - assets/images/reservation/

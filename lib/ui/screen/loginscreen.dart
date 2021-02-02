@@ -6,6 +6,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_order_online/models/auth.dart';
 
+final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
 class loginScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() => loginScreenState();
@@ -46,7 +48,6 @@ class loginScreenState extends State<loginScreen> {
         ),
         onPressed: () async {
           bool isLogin = await context.read<AuthProvider>().login();
-          print(isLogin);
           if (!isLogin) {
             Fluttertoast.showToast(
                 msg: 'Failed Login',
@@ -56,12 +57,19 @@ class loginScreenState extends State<loginScreen> {
                 textColor: Colors.white);
           } else {
             Navigator.of(context).pushReplacementNamed('/dashboard');
+            Fluttertoast.showToast(
+                msg: 'Success Login',
+                toastLength: Toast.LENGTH_LONG,
+                gravity: ToastGravity.BOTTOM,
+                backgroundColor: Colors.green,
+                textColor: Colors.white);
           }
         },
       );
     }
 
     return Scaffold(
+      key: _scaffoldKey,
       body: new Stack(
         children: [
           Container(

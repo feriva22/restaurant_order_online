@@ -9,7 +9,12 @@ import 'package:provider/provider.dart';
 import 'package:restaurant_order_online/models/category.dart';
 import 'package:restaurant_order_online/models/menu.dart';
 
-class dashboardScreen extends StatelessWidget {
+class dashboardScreen extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => dashboardScreenState();
+}
+
+class dashboardScreenState extends State<dashboardScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -34,11 +39,25 @@ class dashboardScreen extends StatelessWidget {
   }
 }
 
-class categoryArea extends StatelessWidget {
+class categoryArea extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => categoryAreaState();
+}
+
+class categoryAreaState extends State<categoryArea> {
+  Future<List<CategoryMenu>> listCategoryMenu;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    this.listCategoryMenu =
+        Provider.of<CategoryModel>(context, listen: false).getListCategory();
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    var categoryList = context.watch<CategoryModel>();
 
     return Column(
       children: [
@@ -62,15 +81,24 @@ class categoryArea extends StatelessWidget {
           ],
         ),
         Container(
-          height: 110,
-          width: size.width,
-          child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: categoryList.getTotalItem(),
-              itemBuilder: (BuildContext ctx, int index) {
-                return miniCategoryCard(index);
-              }),
-        ),
+            height: 110,
+            width: size.width,
+            child: FutureBuilder<List<CategoryMenu>>(
+              future: listCategoryMenu,
+              builder: (context, snapshot) {
+                if (snapshot.data != null) {
+                  return ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: snapshot.data?.length ?? 0,
+                      itemBuilder: (context, index) {
+                        return miniCategoryCard(index, snapshot.data[index]);
+                      });
+                } else if (snapshot.hasError) {
+                  return Text("${snapshot.error}");
+                }
+                return Center(child: CircularProgressIndicator());
+              },
+            )),
       ],
     );
   }
